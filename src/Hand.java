@@ -32,8 +32,8 @@ public class Hand implements Comparable<Hand> {
             return HandRank.STRAIGHT;
         }
 
-        int pairOneValue, pairTwoValue, threeKindValue, fourKindValue;
-        pairOneValue = pairTwoValue = threeKindValue = fourKindValue = -1;
+//        int pairOneValue, pairTwoValue, threeKindValue, fourKindValue;
+//        pairOneValue = pairTwoValue = threeKindValue = fourKindValue = -1;
         boolean PAIR = checkPair();
         boolean TWO_PAIR, THREE_OF_A_KIND, FULL_HOUSE, FOUR_OF_A_KIND;
         TWO_PAIR = THREE_OF_A_KIND = FULL_HOUSE = FOUR_OF_A_KIND = false;
