@@ -23,6 +23,7 @@ public class Hand implements Comparable<Hand> {
 
         //if FLUSH is true then there can't be any pairs due to only one card with each rank being in that suit
         if(FLUSH){
+            setHighCards();
             if(STRAIGHT){
                 return HandRank.STRAIGHT_FLUSH;
             }
@@ -31,6 +32,7 @@ public class Hand implements Comparable<Hand> {
 
         //check for straight here. If there is a straight there can't be a pair in five card poker
         if(STRAIGHT){
+            setHighCards();
             return HandRank.STRAIGHT;
         }
 
@@ -133,9 +135,9 @@ public class Hand implements Comparable<Hand> {
             }
         }
         //check for full house
-        if(pairTwoValue >= 0 && i != 0){
+        if(pairOneValue >= 0 && i != 0){
             for(Card card: pokerHand){
-                if(card.getRank().ordinal() == pairTwoValue){
+                if(card.getRank().ordinal() == pairOneValue){
                     this.highCard[i] = card;
                     i++;
                 }
@@ -174,7 +176,6 @@ public class Hand implements Comparable<Hand> {
         for(int j = 4; j >= 0; j--){
             this.highCard[j] = pokerHand[i];
             i++;
-            j--;
         }
 
 //
