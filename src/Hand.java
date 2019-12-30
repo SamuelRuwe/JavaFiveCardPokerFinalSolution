@@ -134,17 +134,6 @@ public class Hand implements Comparable<Hand> {
             return;
         }
 
-        //check for full house
-//        if(pairOneValue >= 0 && i != 0){
-//            for(Card card: pokerHand){
-//                if(card.getRank().ordinal() == pairOneValue){
-//                    this.highCard[i] = card;
-//                    i++;
-//                }
-//            }
-//            return;
-//        }
-
         if(pairTwoValue >= 0){
             int j = 2;
             for(Card card: pokerHand){
@@ -176,7 +165,6 @@ public class Hand implements Comparable<Hand> {
         }
 
         for(int j = 4; j >= 0; j--){
-            System.out.println("j = " + j + " i = " + i);
             this.highCard[j] = pokerHand[i];
             i++;
         }

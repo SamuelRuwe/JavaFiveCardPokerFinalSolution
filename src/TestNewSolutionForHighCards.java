@@ -196,3 +196,15 @@
 //        }
 //        return false;
 //    }
+
+
+//check for full house
+//        if(pairOneValue >= 0 && i != 0){
+//            for(Card card: pokerHand){
+//                if(card.getRank().ordinal() == pairOneValue){
+//                    this.highCard[i] = card;
+//                    i++;
+//                }
+//            }
+//            return;
+//        }
