@@ -3,12 +3,18 @@ public class Main {
     public static void main(String[] args) {
 
         //need to fix high cards so that high cards are put into appropriate order for non paired cards
-        PokerGame.playPoker("Black: 2H 3D 5S 9C KD  White: 2C 3H 4S 8C AH " +
-                "Black: 2H 4S 4C 2D 4H  White: 2S 8S AS QS 3S " +
-                "Black: 2H 3D 5S 9C KD  White: 2C 3H 4S 8C KH " +
-                "Black: 2H 3D 5S 9C KD  White: 2D 3H 5C 9S KH");
-        Card card = new Card(Rank.FIVE, Suit.DIAMONDS);
+        PokerGame.playPoker("Black: 2H 2D 2C KC QD  White: 2H 5H 7D 8C 9S");
     }
-
-//    Black: 2H 4S 4C 2D 4H  White: 2S 8S AS QS 3S
 }
+
+
+//Black: 2H 3D 5S 9C KD  White: 2C 3H 4S 8C AH " +
+//                "Black: 2H 4S 4C 2D 4H  White: 2S 8S AS QS 3S " +
+//                "Black: 2H 3D 5S 9C KD  White: 2C 3H 4S 8C KH " +
+//                "Black: 2H 3D 5S 9C KD  White: 2D 3H 5C 9S KH " +
+
+//+
+//                "Black: AH 2D 3C 4C 5D  White: 2H 3H 2D 3C 3D " +
+//                "Black: 2H 7H 2D 3C 3D  White: 2H 7H 7D 7C 7S " +
+//                "Black: TH JH QH KH AH  White: 4H 4S KS 5D TS " +
+//                "Black: QC TC 7C 6C 4C  White: AH AH 7C 6C 4C"

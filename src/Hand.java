@@ -121,24 +121,29 @@ public class Hand implements Comparable<Hand> {
         }
 
         if(threeOfKindValue >= 0){
+            int j = 4;
             for(Card card: pokerHand){
                 if(card.getRank().ordinal() == threeOfKindValue){
                     this.highCard[i] = card;
                     i++;
-                }
-            }
-        }
-
-        //check for full house
-        if(pairOneValue >= 0 && i != 0){
-            for(Card card: pokerHand){
-                if(card.getRank().ordinal() == pairOneValue){
-                    this.highCard[i] = card;
-                    i++;
+                } else {
+                    this.highCard[j] = card;
+                    j--;
                 }
             }
             return;
         }
+
+        //check for full house
+//        if(pairOneValue >= 0 && i != 0){
+//            for(Card card: pokerHand){
+//                if(card.getRank().ordinal() == pairOneValue){
+//                    this.highCard[i] = card;
+//                    i++;
+//                }
+//            }
+//            return;
+//        }
 
         if(pairTwoValue >= 0){
             int j = 2;
@@ -171,6 +176,7 @@ public class Hand implements Comparable<Hand> {
         }
 
         for(int j = 4; j >= 0; j--){
+            System.out.println("j = " + j + " i = " + i);
             this.highCard[j] = pokerHand[i];
             i++;
         }
