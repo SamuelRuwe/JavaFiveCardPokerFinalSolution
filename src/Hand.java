@@ -6,7 +6,6 @@ public class Hand implements Comparable<Hand> {
     private final String playerName;
     private HandRank handRank;
     private int pairOneValue, pairTwoValue, threeOfKindValue, fourOfKindValue;
-    //figure out how to set up highcard appropriately
     private Card[] highCard = new Card[5];
 
     public Hand(String playerName, Card[] pokerHand) {
@@ -85,26 +84,20 @@ public class Hand implements Comparable<Hand> {
     //cards are already sorted so if there is a pair it will be the next card in the set
     private void setMultiCards(){
         for(int i = 0; i < pokerHand.length-1; i++){
-//            System.out.println("i = " + i);
             if(pokerHand[i].getRank() == pokerHand[i+1].getRank()){
                 //this should evaluate to false before checking the next value so it won't cause an out of bounds exception
                 if((i < pokerHand.length-2 && pokerHand[i].getRank().ordinal() != pokerHand[i+2].getRank().ordinal()) || i == 3){
                     if(pairOneValue == -1){
-//                        System.out.println("in pair one " + playerName);
                         this.pairOneValue = pokerHand[i].getRank().ordinal();
                     } else {
-//                        System.out.println("in pair two " + playerName);
                         this.pairTwoValue = pokerHand[i].getRank().ordinal();
                     }
-//                    System.out.println("pair one value = " + pairOneValue);
                     i++;
                 } else if(i < pokerHand.length-2 && pokerHand[i].getRank().ordinal() == pokerHand[i+2].getRank().ordinal()){
                     if(i < pokerHand.length-3 && pokerHand[i].getRank().ordinal() == pokerHand[i+3].getRank().ordinal()){
-//                        System.out.println("in four of kind");
                         this.fourOfKindValue = pokerHand[i].getRank().ordinal();
                         i+=3;
                     } else if(fourOfKindValue == -1) {
-//                        System.out.println("in three of kind");
                         this.threeOfKindValue = pokerHand[i].getRank().ordinal();
                         i+=2;
                     }
@@ -126,6 +119,7 @@ public class Hand implements Comparable<Hand> {
             }
             return;
         }
+
         if(threeOfKindValue >= 0){
             for(Card card: pokerHand){
                 if(card.getRank().ordinal() == threeOfKindValue){
@@ -134,6 +128,7 @@ public class Hand implements Comparable<Hand> {
                 }
             }
         }
+
         //check for full house
         if(pairOneValue >= 0 && i != 0){
             for(Card card: pokerHand){
@@ -144,8 +139,8 @@ public class Hand implements Comparable<Hand> {
             }
             return;
         }
+
         if(pairTwoValue >= 0){
-//            System.out.println("in two pair value high card setter i = " + i);
             int j = 2;
             for(Card card: pokerHand){
                 if(card.getRank().ordinal() == pairTwoValue){
@@ -160,6 +155,7 @@ public class Hand implements Comparable<Hand> {
             }
             return;
         }
+
         if(pairOneValue >= 0){
             int j = 4;
             for(Card card: pokerHand){
@@ -173,16 +169,11 @@ public class Hand implements Comparable<Hand> {
             }
             return;
         }
+
         for(int j = 4; j >= 0; j--){
             this.highCard[j] = pokerHand[i];
             i++;
         }
-
-//
-//        System.out.println("four of kind = " + fourOfKindValue);
-//        System.out.println("three of kind = " + threeOfKindValue);
-//        System.out.println("pairOne value = " + pairOneValue);
-//        System.out.println("pair two value = " + pairTwoValue);
     }
 
     public String getPlayerName() {
@@ -197,23 +188,22 @@ public class Hand implements Comparable<Hand> {
         return this.highCard;
     }
 
-    public Card[] getPokerHand() {
-        return this.pokerHand;
-    }
-
     @Override
     public int compareTo(Hand opponentHand) {
-//        System.out.println("Hand1 = " + this.handRank);
-//        System.out.println("Hand2 = " + opponentHand.handRank);
         if(this.handRank.ordinal() != opponentHand.handRank.ordinal()){
             return this.handRank.ordinal() > opponentHand.handRank.ordinal() ? 1 : -1;
         }
         for(int i = 0; i < pokerHand.length; i++){
             if(this.pokerHand[i].getRank().ordinal() != opponentHand.pokerHand[i].getRank().ordinal()){
-                return this.pokerHand[i].getRank().ordinal() > opponentHand.pokerHand[i].getRank().ordinal() ? 1 : -1;
+                if(this.pokerHand[i].getRank().ordinal() > opponentHand.pokerHand[i].getRank().ordinal()){
+                    PokerGame.setWinningCard(this.pokerHand[i]);
+                    return 1;
+                } else {
+                    PokerGame.setWinningCard(opponentHand.pokerHand[i]);
+                    return -1;
+                }
             }
         }
         return 0;
     }
-
 }
