@@ -37,10 +37,12 @@ public class PokerGame {
 
     private void returnWinner(){
         int score = this.hands[0].compareTo(this.hands[1]);
+        String playerOne = this.hands[0].getHandRank().toString().toLowerCase() + " " + Arrays.toString(this.hands[0].getPokerHand());
+        String playerTwo = this.hands[1].getHandRank().toString().toLowerCase() + " " + Arrays.toString(this.hands[1].getPokerHand());
         if(score > 0){
-            System.out.println(this.hands[0].getPlayerName() + " wins. - with " + this.hands[0].getHandRank().toString().toLowerCase() + " " + this.hands[0].getHighCards().toString().toLowerCase());
+            System.out.println(this.hands[0].getPlayerName() + " wins. - with " + playerOne + " vs. " + playerTwo);
         } else if(score < 0){
-            System.out.println(this.hands[1].getPlayerName() + " wins. - with " + this.hands[1].getHandRank().toString().toLowerCase() + " " + this.hands[1].getHighCards().get(0).toString().toLowerCase());
+            System.out.println(this.hands[1].getPlayerName() + " wins. - with " + playerTwo + " vs. " + playerOne);
         } else {
             System.out.println("Tie.");
         }

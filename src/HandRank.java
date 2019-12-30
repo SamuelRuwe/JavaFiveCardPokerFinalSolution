@@ -8,4 +8,9 @@ public enum HandRank {
     FULL_HOUSE,
     FOUR_OF_A_KIND,
     STRAIGHT_FLUSH;
+
+    @Override
+    public String toString(){
+        return name().replaceAll("_", " ");
+    }
 }
