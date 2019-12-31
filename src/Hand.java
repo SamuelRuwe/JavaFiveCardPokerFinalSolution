@@ -16,6 +16,7 @@ public class Hand implements Comparable<Hand> {
         this.pairOneValue = this.pairTwoValue = this.threeOfKindValue = this.fourOfKindValue = -1;
         Arrays.sort(this.pokerHand);
         this.handRank = setHandRank();
+        setHighCards();
     }
 
     // == Getters ==
@@ -127,7 +128,6 @@ public class Hand implements Comparable<Hand> {
 
         //if FLUSH is true then there can't be any pairs due to only one card with each rank being in that suit
         if(FLUSH){
-            setHighCards();
             if(STRAIGHT){
                 return HandRank.STRAIGHT_FLUSH;
             }
@@ -136,12 +136,10 @@ public class Hand implements Comparable<Hand> {
 
         //check for straight here. If there is a straight there can't be a pair in five card poker
         if(STRAIGHT){
-            setHighCards();
             return HandRank.STRAIGHT;
         }
 
         setMultiCards();
-        setHighCards();
                 return fourOfKindValue >= 0 ? HandRank.FOUR_OF_A_KIND :
                         threeOfKindValue >= 0 && pairOneValue >= 0 ? HandRank.FULL_HOUSE :
                         threeOfKindValue >= 0 ? HandRank.THREE_OF_A_KIND :
