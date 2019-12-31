@@ -1,5 +1,6 @@
 public class Card implements Comparable<Card>{
 
+    // == Fields ==
     private final Rank rank;
     private final Suit suit;
 

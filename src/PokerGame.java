@@ -2,6 +2,7 @@ import java.util.Arrays;
 
 public class PokerGame {
 
+    // == Fields ==
     private final Hand[] hands = new Hand[2];
     private static Card winningCard;
 

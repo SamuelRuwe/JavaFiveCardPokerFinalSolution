@@ -2,6 +2,7 @@ import java.util.*;
 
 public class Hand implements Comparable<Hand> {
 
+    // == Fields ==
     private final Card[] pokerHand;
     private final String playerName;
     private HandRank handRank;
