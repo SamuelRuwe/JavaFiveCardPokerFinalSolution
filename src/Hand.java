@@ -7,7 +7,7 @@ public class Hand implements Comparable<Hand> {
     private final String playerName;
     private HandRank handRank;
     private int pairOneValue, pairTwoValue, threeOfKindValue, fourOfKindValue;
-    private Card[] highCard = new Card[5];
+    private Card[] highCards = new Card[5];
 
     // == Constructors ==
     public Hand(String playerName, Card[] pokerHand) {
@@ -28,8 +28,8 @@ public class Hand implements Comparable<Hand> {
         return this.handRank;
     }
 
-    public Card[] getHighCard() {
-        return this.highCard;
+    public Card[] getHighCards() {
+        return this.highCards;
     }
 
     // == Setters ==
@@ -63,10 +63,10 @@ public class Hand implements Comparable<Hand> {
         if(fourOfKindValue >= 0){
             for(Card card: pokerHand){
                 if(card.getRank().ordinal() == fourOfKindValue){
-                    this.highCard[i] = card;
+                    this.highCards[i] = card;
                     i++;
                 } else{
-                    this.highCard[4] = card;
+                    this.highCards[4] = card;
                 }
             }
             return;
@@ -76,10 +76,10 @@ public class Hand implements Comparable<Hand> {
             int j = 4;
             for(Card card: pokerHand){
                 if(card.getRank().ordinal() == threeOfKindValue){
-                    this.highCard[i] = card;
+                    this.highCards[i] = card;
                     i++;
                 } else {
-                    this.highCard[j] = card;
+                    this.highCards[j] = card;
                     j--;
                 }
             }
@@ -90,13 +90,13 @@ public class Hand implements Comparable<Hand> {
             int j = 2;
             for(Card card: pokerHand){
                 if(card.getRank().ordinal() == pairTwoValue){
-                    this.highCard[i] = card;
+                    this.highCards[i] = card;
                     i++;
                 } else if(card.getRank().ordinal() == pairOneValue){
-                    this.highCard[j] = card;
+                    this.highCards[j] = card;
                     j++;
                 } else {
-                    this.highCard[4] = card;
+                    this.highCards[4] = card;
                 }
             }
             return;
@@ -106,10 +106,10 @@ public class Hand implements Comparable<Hand> {
             int j = 4;
             for(Card card: pokerHand){
                 if(card.getRank().ordinal() == pairOneValue){
-                    this.highCard[i] = card;
+                    this.highCards[i] = card;
                     i++;
                 } else{
-                    this.highCard[j] = card;
+                    this.highCards[j] = card;
                     j--;
                 }
             }
@@ -117,7 +117,7 @@ public class Hand implements Comparable<Hand> {
         }
 
         for(int j = 4; j >= 0; j--){
-            this.highCard[j] = pokerHand[i];
+            this.highCards[j] = pokerHand[i];
             i++;
         }
     }
@@ -194,9 +194,11 @@ public class Hand implements Comparable<Hand> {
             if(this.pokerHand[i].getRank().ordinal() != opponentHand.pokerHand[i].getRank().ordinal()){
                 if(this.pokerHand[i].getRank().ordinal() > opponentHand.pokerHand[i].getRank().ordinal()){
                     PokerGame.setWinningCard(this.pokerHand[i]);
+                    PokerGame.setLosingCard(opponentHand.pokerHand[i]);
                     return 1;
-                } else {
+                } else if (this.pokerHand[i].getRank().ordinal() < opponentHand.pokerHand[i].getRank().ordinal()){
                     PokerGame.setWinningCard(opponentHand.pokerHand[i]);
+                    PokerGame.setLosingCard(this.pokerHand[i]);
                     return -1;
                 }
             }
