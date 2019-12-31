@@ -8,7 +8,8 @@ public class Main {
                 "Black: 2H 7H 2D 3C 3D  White: 2H 7H 7D 7C 7S " +
                 "Black: TH JH QH KH AH  White: 4H 4S KS 5D TS " +
                 "Black: QC TC 7C 6C 4C  White: AD AH 7C 6C 4C " +
-                "Black: 2C 4C 6C 8C AD  White: 2C 4C 6C 8C TD");
+                "Black: 2C 4C 6C 8C AD  White: 2C 4C 6C 8C TD " +
+                "Black: 2C 2C 4C 4C TD  White: 2C 2C 4C 4C JD"  );
     }
 }
 

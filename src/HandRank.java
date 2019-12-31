@@ -9,6 +9,7 @@ public enum HandRank {
     FOUR_OF_A_KIND,
     STRAIGHT_FLUSH;
 
+    // == Overridden Methods ==
     @Override
     public String toString(){
         return name().replaceAll("_", " ");

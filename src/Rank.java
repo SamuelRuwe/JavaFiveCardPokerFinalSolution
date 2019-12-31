@@ -16,29 +16,34 @@ public enum Rank {
     KING ('K'),
     ACE ('A');
 
+    // == Fields ==
     private final char numVal;
-
     public static final Map<Character, Rank> cardValueMap = new HashMap<>();
 
+    // == Static Init Block ==
     static {
         for(Rank val: Rank.values()){
             cardValueMap.put(val.getNumVal(), val);
         }
     }
 
+    // == Constructors ==
     Rank(char cardNumVal){
         this.numVal = cardNumVal;
     }
 
+    // == Getters ==
     public char getNumVal(){
         return this.numVal;
     }
 
+    // == Static Methods ==
     public static Rank createCardValue(char cardNumVal){
         Rank temp = cardValueMap.get(cardNumVal);
         return temp;
     }
 
+    // == Overridden Methods ==
     @Override
     public String toString(){
         String name = name();

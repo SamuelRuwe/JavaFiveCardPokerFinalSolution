@@ -8,6 +8,7 @@ public class Hand implements Comparable<Hand> {
     private int pairOneValue, pairTwoValue, threeOfKindValue, fourOfKindValue;
     private Card[] highCard = new Card[5];
 
+    // == Constructors ==
     public Hand(String playerName, Card[] pokerHand) {
         this.playerName = playerName;
         this.pokerHand = pokerHand;
@@ -16,71 +17,20 @@ public class Hand implements Comparable<Hand> {
         this.handRank = setHandRank();
     }
 
-    private HandRank setHandRank(){
-        boolean FLUSH = checkFlush();
-        boolean STRAIGHT = checkStraight();
-
-        //if FLUSH is true then there can't be any pairs due to only one card with each rank being in that suit
-        if(FLUSH){
-            setHighCards();
-            if(STRAIGHT){
-                return HandRank.STRAIGHT_FLUSH;
-            }
-            return HandRank.FLUSH;
-        }
-
-        //check for straight here. If there is a straight there can't be a pair in five card poker
-        if(STRAIGHT){
-            setHighCards();
-            return HandRank.STRAIGHT;
-        }
-
-        //change this code so it all runs off the one function
-        setMultiCards();
-        setHighCards();
-                return fourOfKindValue >= 0 ? HandRank.FOUR_OF_A_KIND :
-                        threeOfKindValue >= 0 && pairOneValue >= 0 ? HandRank.FULL_HOUSE :
-                        threeOfKindValue >= 0 ? HandRank.THREE_OF_A_KIND :
-                        pairTwoValue >= 0 ? HandRank.TWO_PAIRS :
-                                pairOneValue >= 0 ? HandRank.PAIR : HandRank.HIGH_CARD;
+    // == Getters ==
+    public String getPlayerName() {
+        return this.playerName;
     }
 
-    private boolean checkFlush(){
-        if(pokerHand[0].getSuit() == pokerHand[1].getSuit() &&
-                pokerHand[0].getSuit() == pokerHand[2].getSuit() &&
-                pokerHand[0].getSuit() == pokerHand[3].getSuit() &&
-                pokerHand[0].getSuit() == pokerHand[4].getSuit()) {
-            return true;
-        }
-        return false;
+    public HandRank getHandRank() {
+        return this.handRank;
     }
 
-    private boolean checkStraight(){
-        int checkRank = pokerHand[0].getRank().ordinal();
-        //check for possibility of a low ace straight
-        if(pokerHand[4].getRank().ordinal() == 12 && checkRank == 0){
-            for(int i = 1; i < pokerHand.length-1; i++){
-                if(pokerHand[i].getRank().ordinal() != checkRank+i){
-                    return false;
-                }
-            }
-
-            Card temp = pokerHand[4];
-            for (int i = 3; i >= 0; i--) {
-                pokerHand[i+1] = pokerHand[i];
-            }
-            pokerHand[0] = temp;
-            return true;
-        }
-        //checking for regular straight
-        for(int i = 1; i < pokerHand.length; i++){
-            if(pokerHand[i].getRank().ordinal() != checkRank+i){
-                return false;
-            }
-        }
-        return true;
+    public Card[] getHighCard() {
+        return this.highCard;
     }
 
+    // == Setters ==
     //cards are already sorted so if there is a pair it will be the next card in the set
     private void setMultiCards(){
         for(int i = 0; i < pokerHand.length-1; i++){
@@ -170,18 +120,72 @@ public class Hand implements Comparable<Hand> {
         }
     }
 
-    public String getPlayerName() {
-        return this.playerName;
+    private HandRank setHandRank(){
+        boolean FLUSH = checkFlush();
+        boolean STRAIGHT = checkStraight();
+
+        //if FLUSH is true then there can't be any pairs due to only one card with each rank being in that suit
+        if(FLUSH){
+            setHighCards();
+            if(STRAIGHT){
+                return HandRank.STRAIGHT_FLUSH;
+            }
+            return HandRank.FLUSH;
+        }
+
+        //check for straight here. If there is a straight there can't be a pair in five card poker
+        if(STRAIGHT){
+            setHighCards();
+            return HandRank.STRAIGHT;
+        }
+
+        setMultiCards();
+        setHighCards();
+                return fourOfKindValue >= 0 ? HandRank.FOUR_OF_A_KIND :
+                        threeOfKindValue >= 0 && pairOneValue >= 0 ? HandRank.FULL_HOUSE :
+                        threeOfKindValue >= 0 ? HandRank.THREE_OF_A_KIND :
+                        pairTwoValue >= 0 ? HandRank.TWO_PAIRS :
+                                pairOneValue >= 0 ? HandRank.PAIR : HandRank.HIGH_CARD;
     }
 
-    public HandRank getHandRank() {
-        return this.handRank;
+    // == Class Methods to Check for HandRanks ==
+    private boolean checkFlush(){
+        if(pokerHand[0].getSuit() == pokerHand[1].getSuit() &&
+                pokerHand[0].getSuit() == pokerHand[2].getSuit() &&
+                pokerHand[0].getSuit() == pokerHand[3].getSuit() &&
+                pokerHand[0].getSuit() == pokerHand[4].getSuit()) {
+            return true;
+        }
+        return false;
     }
 
-    public Card[] getHighCard() {
-        return this.highCard;
+    private boolean checkStraight(){
+        int checkRank = pokerHand[0].getRank().ordinal();
+        //check for possibility of a low ace straight
+        if(pokerHand[4].getRank().ordinal() == 12 && checkRank == 0){
+            for(int i = 1; i < pokerHand.length-1; i++){
+                if(pokerHand[i].getRank().ordinal() != checkRank+i){
+                    return false;
+                }
+            }
+
+            Card temp = pokerHand[4];
+            for (int i = 3; i >= 0; i--) {
+                pokerHand[i+1] = pokerHand[i];
+            }
+            pokerHand[0] = temp;
+            return true;
+        }
+        //checking for regular straight
+        for(int i = 1; i < pokerHand.length; i++){
+            if(pokerHand[i].getRank().ordinal() != checkRank+i){
+                return false;
+            }
+        }
+        return true;
     }
 
+    // == Overriden Methods ==
     @Override
     public int compareTo(Hand opponentHand) {
         if(this.handRank.ordinal() != opponentHand.handRank.ordinal()){

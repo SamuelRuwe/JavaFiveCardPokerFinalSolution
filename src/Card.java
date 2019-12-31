@@ -3,6 +3,7 @@ public class Card implements Comparable<Card>{
     private final Rank rank;
     private final Suit suit;
 
+    // == Constructors ==
     public Card(Rank rank, Suit suit) {
         this.rank = rank;
         this.suit = suit;
@@ -14,6 +15,7 @@ public class Card implements Comparable<Card>{
         this.suit = Suit.createSuitValue(cardValues[1]);
     }
 
+    // == Getters ==
     public Rank getRank() {
         return rank;
     }
@@ -22,6 +24,7 @@ public class Card implements Comparable<Card>{
         return suit;
     }
 
+    // == Overridden Methods ==
     @Override
     public String toString() {
         return  "" + this.getRank()+ this.getSuit();

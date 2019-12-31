@@ -7,29 +7,34 @@ public enum Suit {
     SPADES('S'),
     CLUBS('C');
 
+    // == Fields ==
     private final char suitVal;
-
     public static final Map<Character, Suit> suitValueMap = new HashMap<>();
 
+    // == Static Init Block ==
     static {
         for (Suit val : Suit.values()) {
             suitValueMap.put(val.getSuitVal(), val);
         }
     }
 
+    // == Constructors ==
     Suit(char suitLetterVal) {
         this.suitVal = suitLetterVal;
     }
 
+    // == Getters ==
     public char getSuitVal() {
         return this.suitVal;
     }
 
+    // == Static Methods ==
     public static Suit createSuitValue(char suitLetterVal) {
         Suit temp = suitValueMap.get(suitLetterVal);
         return temp;
     }
 
+    // == Overridden Methods ==
     @Override
     public String toString(){
         String name = name();
