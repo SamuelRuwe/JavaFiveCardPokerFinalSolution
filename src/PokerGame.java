@@ -14,24 +14,24 @@ public class PokerGame {
     }
 
     // == Setters ==
-    static void setWinningCard(Card card){
+    static void setWinningCard(Card card) {
         winningCard = card;
     }
 
-    static void setLosingCard(Card card){
+    static void setLosingCard(Card card) {
         losingCard = card;
     }
 
     // == Class Methods ==
-    private String returnWinner(){
+    private String returnWinner() {
         int score = this.hands[0].compareTo(this.hands[1]);
         String playerOne, playerTwo;
         boolean kicker = winningCard != null ? true : false;
-        if(score > 0){
+        if (score > 0) {
             playerOne = handRankResult(this.hands[0].getHandRank(), this.hands[0].getHighCards(), true, kicker);
             playerTwo = handRankResult(this.hands[1].getHandRank(), this.hands[1].getHighCards(), false, kicker);
             return this.hands[0].getPlayerName() + " wins. - with " + playerOne + playerTwo;
-        } else if(score < 0){
+        } else if (score < 0) {
             playerTwo = handRankResult(this.hands[1].getHandRank(), this.hands[1].getHighCards(), true, kicker);
             playerOne = handRankResult(this.hands[0].getHandRank(), this.hands[0].getHighCards(), false, kicker);
             return this.hands[1].getPlayerName() + " wins. - with " + playerTwo + playerOne;
@@ -40,17 +40,11 @@ public class PokerGame {
         }
     }
 
-    private String handRankResult(HandRank handRank, Card[] pokerHand, boolean winner, boolean kicker){
+    private String handRankResult(HandRank handRank, Card[] pokerHand, boolean winner, boolean kicker) {
         StringBuilder result = new StringBuilder();
-        switch (handRank){
+        switch (handRank) {
             case HIGH_CARD:
-                if(winningCard == null){
-                    result.append("high card " + pokerHand[0]);
-                } else if (winner){
-                    result.append("high card " + winningCard);
-                } else {
-                    result.append("high card " + losingCard);
-                }
+                result.append("high card " + pokerHand[0]);
                 break;
             case PAIR:
                 result.append("a pair of " + pokerHand[0].getRank() + "'s");
@@ -77,14 +71,16 @@ public class PokerGame {
                 result.append("straight flush: " + pokerHand[4].getRank() + " to " + pokerHand[0].getRank() + " in " + pokerHand[0].getSuit() + "'s");
                 break;
         }
-        if(kicker && handRank != HandRank.HIGH_CARD){
-            if(winner){
+        if (kicker && handRank != HandRank.HIGH_CARD ||
+                winner && kicker && pokerHand[0].getRank() != winningCard.getRank() ||
+                !winner && kicker && pokerHand[0].getRank() != losingCard.getRank()) {
+            if (winner) {
                 result.append(" and a kicker of " + winningCard);
             } else {
                 result.append(" and a kicker of " + losingCard);
             }
         }
-        if(winner){
+        if (winner) {
             result.append(" vs. ");
         } else {
             result.append(".");
@@ -93,45 +89,45 @@ public class PokerGame {
     }
 
     // == Static Methods ==
-    static void playPoker(String input){
-            input = input.trim()
-                    .replaceAll("\\s{2}", " ")
-                    .replaceAll(":", "");
-            String[] temp = input.split(" ");
-            int counter = 0;
-            while(counter <= temp.length-12){
-                try{
-                Hand Black = createHand(Arrays.copyOfRange(temp, counter, counter+6));
-                counter +=6;
-                Hand White = createHand(Arrays.copyOfRange(temp, counter, counter+6));
-                counter+=6;
+    static void playPoker(String input) {
+        input = input.trim()
+                .replaceAll("\\s{2}", " ")
+                .replaceAll(":", "");
+        String[] temp = input.split(" ");
+        int counter = 0;
+        while (counter <= temp.length - 12) {
+            try {
+                Hand Black = createHand(Arrays.copyOfRange(temp, counter, counter + 6));
+                counter += 6;
+                Hand White = createHand(Arrays.copyOfRange(temp, counter, counter + 6));
+                counter += 6;
                 PokerGame pokerGame = new PokerGame(Black, White);
                 System.out.println(pokerGame.returnWinner());
                 reset();
-                } catch (NullPointerException e){
-                    System.out.println("Please input a valid hand comparison.");
-                    reset();
-                    while(counter <= temp.length-12){
-                        if(temp[counter].equalsIgnoreCase("black")){
-                            break;
-                        }
-                        counter++;
+            } catch (NullPointerException e) {
+                System.out.println("Please input a valid hand comparison.");
+                reset();
+                while (counter <= temp.length - 12) {
+                    if (temp[counter].equalsIgnoreCase("black")) {
+                        break;
                     }
+                    counter++;
                 }
             }
+        }
     }
 
-    private static Hand createHand(String[] handString){
+    private static Hand createHand(String[] handString) {
         String name = handString[0];
         Card[] pokerHand = new Card[5];
-        for(int i = 1; i < 6; i++){
+        for (int i = 1; i < 6; i++) {
             Card card = new Card(handString[i]);
-            pokerHand[i-1] = card;
+            pokerHand[i - 1] = card;
         }
         return new Hand(name, pokerHand);
     }
 
-    static void reset(){
+    static void reset() {
         winningCard = losingCard = null;
     }
 }

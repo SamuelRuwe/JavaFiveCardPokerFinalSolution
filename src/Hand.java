@@ -33,7 +33,6 @@ public class Hand implements Comparable<Hand> {
     }
 
     // == Setters ==
-    //cards are already sorted so if there is a pair it will be the next card in the set
     private void setMultiCards(){
         for(int i = 0; i < pokerHand.length-1; i++){
             if(pokerHand[i].getRank() == pokerHand[i+1].getRank()){
@@ -190,15 +189,15 @@ public class Hand implements Comparable<Hand> {
         if(this.handRank.ordinal() != opponentHand.handRank.ordinal()){
             return this.handRank.ordinal() > opponentHand.handRank.ordinal() ? 1 : -1;
         }
-        for(int i = 0; i < pokerHand.length; i++){
-            if(this.pokerHand[i].getRank().ordinal() != opponentHand.pokerHand[i].getRank().ordinal()){
-                if(this.pokerHand[i].getRank().ordinal() > opponentHand.pokerHand[i].getRank().ordinal()){
-                    PokerGame.setWinningCard(this.pokerHand[i]);
-                    PokerGame.setLosingCard(opponentHand.pokerHand[i]);
+        for(int i = 0; i < highCards.length; i++){
+            if(this.highCards[i].getRank().ordinal() != opponentHand.highCards[i].getRank().ordinal()){
+                if(this.highCards[i].getRank().ordinal() > opponentHand.highCards[i].getRank().ordinal()){
+                    PokerGame.setWinningCard(this.highCards[i]);
+                    PokerGame.setLosingCard(opponentHand.highCards[i]);
                     return 1;
-                } else if (this.pokerHand[i].getRank().ordinal() < opponentHand.pokerHand[i].getRank().ordinal()){
-                    PokerGame.setWinningCard(opponentHand.pokerHand[i]);
-                    PokerGame.setLosingCard(this.pokerHand[i]);
+                } else if (this.highCards[i].getRank().ordinal() < opponentHand.highCards[i].getRank().ordinal()){
+                    PokerGame.setWinningCard(opponentHand.highCards[i]);
+                    PokerGame.setLosingCard(this.highCards[i]);
                     return -1;
                 }
             }

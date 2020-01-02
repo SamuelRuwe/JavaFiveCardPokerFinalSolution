@@ -20,7 +20,7 @@ public enum Rank {
     private final char numVal;
     public static final Map<Character, Rank> cardValueMap = new HashMap<>();
 
-    // == Static Init Block ==
+    // == Static Block ==
     static {
         for(Rank val: Rank.values()){
             cardValueMap.put(val.getNumVal(), val);
